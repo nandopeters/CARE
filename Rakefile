@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-HealthTxt::Application.load_tasks
+CarePath::Application.load_tasks
