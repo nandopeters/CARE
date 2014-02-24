@@ -1,0 +1,2 @@
+module PatientPortalHelper
+end

@@ -1,0 +1,10 @@
+<h3>Home</h3>
+<% @users.each do |user| %>
+  <p>User: <%=link_to user.name, user %></p>
+<% end %>
+<%= link_to 'Sign in', new_user_session_path , class: "btn-header" %>
+<ul>
+	<li><%= link_to 'Sign up VIP', new_user_registration_path(:plan => 'VIP') %></li>
+	<li><%= link_to 'Sign up reg', new_user_registration_path(:plan => 'reg') %></li>
+</ul>
+

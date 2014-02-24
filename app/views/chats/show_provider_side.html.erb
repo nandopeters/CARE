@@ -1,0 +1,257 @@
+<div class="chat-room">
+    <aside class="left-side">
+        <div class="user-head">
+            <i class="fa fa-comments-o"></i>
+            <h3>CarePath</h3>
+        </div>
+        <ul class="chat-list">
+            <li class="">
+                <a class="lobby" href="lobby.html">
+                    <h4>
+                        <i class="fa fa-list"></i>
+                        Lobby
+                    </h4>
+                </a>
+            </li>
+            <!-- <li>
+                <a href="chat_room.html">
+                  <i class="fa fa-rocket"></i>
+                  <span>Marketing</span>
+                  <i class="fa fa-times pull-right"></i>
+                </a>
+            </li> -->
+            <li class="active">
+                <a href="chat_room.html">
+                    <i class="fa fa-rocket"></i>
+                    <span>Water Cooler</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-rocket"></i>
+                    <span>Design Lounge</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-rocket"></i>
+                    <span>Development</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+
+        </ul>
+        <ul class="chat-list chat-user">
+
+            <li>
+                <a href="#">
+                    <i class="fa fa-circle text-success"></i>
+                    <span>Jonathan Smith</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-circle text-success"></i>
+                    <span>Jhon Doe</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-circle text-muted"></i>
+                    <span>Franklin kally</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-circle text-danger"></i>
+                    <span>Anjelina Joe</span>
+                    <i class="fa fa-times pull-right"></i>
+                </a>
+            </li>
+
+        </ul>
+        <footer>
+                <a class="chat-avatar" href="javascript:;">
+                    <%= image_tag("flatlab/mail-avatar.jpg") %>
+                </a>
+                <div class="user-status">
+                    <i class="fa fa-circle text-success"></i>
+                    Available
+                </div>
+                <a class="chat-dropdown pull-right" href="javascript:;">
+                    <i class="fa fa-chevron-down"></i>
+                </a>
+        </footer>
+    </aside>
+    <aside class="mid-side">
+        <div class="chat-room-head">
+            <h3>Chat with <%= @chat.patient.name %></h3>
+            <form action="#" class="pull-right position">
+                <input type="text" placeholder="Search" class="form-control search-btn ">
+            </form>
+        </div>
+
+        <div class="chat-room-messages-box" id="chat-messages">
+            <% @chat.messages.each do |message| %>
+                <%= display_chat_message_with_patient( message, @chat.patient ) %>
+            <% end %>
+
+            <!-- <div class="group-rom">
+                <div class="first-part odd"><%= @chat.patient.name %></div>
+                <div class="second-part">Hello Anjelina are you there?</div>
+                <div class="third-part">12:30</div>
+            </div>
+            <div class="group-rom">
+                <div class="first-part">Me</div>
+                <div class="second-part">
+                    Yeap Smith. Please proceed. This is dummy text to see if it wraps around and how
+                    that looks. Hopefully it looks pretty good. 
+                </div>
+                <div class="third-part">12:31</div>
+            </div> -->
+        </div>
+        
+        <footer>
+            <%= form_tag("/messages", remote: true) do %>
+                <div class="chat-txt">
+                    <!-- <input type="text" class="form-control"> -->
+                    <%= text_field_tag('message_body', "", class: "form-control", autofocus: true, placeholder: "Your message...", autocomplete: "off") %>
+                    <%#= text_field_tag('message_body', "", class: "form-control", autofocus: true) %>
+                    <%= hidden_field_tag 'sender_id', current_user.id %>
+                    <%= hidden_field_tag 'chat_id', @chat.id %>
+                </div>
+                <div class="btn-group">
+                    <!-- <button type="button" class="btn btn-white"><i class="fa fa-meh-o"></i></button> -->
+                    <!-- <button type="button" class="btn btn-white"><i class=" fa fa-paperclip"></i></button> -->
+                </div>
+                <%= submit_tag("Send", class: "btn btn-danger") %>
+                <!-- <button class="btn btn-danger">Send</button> -->
+            <% end %>
+        </footer>
+    </aside>
+    <aside class="right-side">
+        <div class="user-head">
+            <a href="#" class="chat-tools btn-success"><i class="fa fa-cog"></i> </a>
+            <a href="#" class="chat-tools btn-key"><i class="fa fa-key"></i> </a>
+        </div>
+        <div class="invite-row">
+            <h4 class="pull-left">My Patients</h4>
+        </div>
+        <ul class="chat-available-user">
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-success"></i>
+                    Jonathan Smith
+                    <span class="text-muted">3h:22m</span>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-success"></i>
+                    Jhone Due
+                    <span class="text-muted">1h:2m</span>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-success"></i>
+                    Franklyn Kalley
+                    <span class="text-muted">2h:32m</span>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-danger"></i>
+                    Anjelina joe
+                    <span class="text-muted">3h:22m</span>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-warning"></i>
+                    Aliace Stalvien
+                    <span class="text-muted">1h:12m</span>
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-muted"></i>
+                    Stive jones
+                    <!--<span class="text-muted">3h:22m</span>-->
+                </a>
+            </li>
+            <li>
+                <a href="chat_room.html">
+                    <i class="fa fa-circle text-muted"></i>
+                    Jonathan Smith
+                    <!--<span class="text-muted">3h:22m</span>-->
+                </a>
+            </li>
+        </ul>
+        <footer>
+            <a href="#" class="guest-on">
+                <i class="fa fa-check"></i>
+                Guest Access On
+                <%= audio_tag('ding.wav') %>
+            </a>
+        </footer>
+    </aside>
+</div>
+
+<script type="text/javascript">
+
+
+    // var ding = new buzz.sound('/assets/ding.wav');
+    var ding = new buzz.sound('<%= asset_path("ding.wav") %>');
+    // ding.play();
+    $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+
+    var pusher = new Pusher('<%= ENV["PUSHER_API_KEY"] %>');
+
+    var current_user_id = <%= current_user.id %>;
+
+    var channel = pusher.subscribe('healthtxt_chat');
+    channel.bind('new-txt-message', function(data) {
+        if (data.sender_id === current_user_id) {
+            show_sent_message(data);
+        } else {
+            show_received_message(data);
+        }
+    });
+
+    function show_sent_message(data) {
+        var output = '<div class="group-rom"><div class="first-part">'
+        output += "Me";
+        output += '</div><div class="second-part">';
+        output += data.body;
+        output += '</div><div class="third-part">';
+        output += data.timestamp;
+        output += '</div></div>';
+        $('#chat-messages').append(output);
+        $('#message_body').val("");
+        $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+    }
+
+    function show_received_message(data) {
+        var output = '<div class="group-rom"><div class="first-part">'
+        output += data.sender_name;
+        output += '</div><div class="second-part">'
+        output += data.body
+        output += '</div><div class="third-part">'
+        output += data.timestamp
+        output += '</div></div>'
+        $('#chat-messages').append(output);
+        $('#message_body').val("");
+        $('#chat-messages').scrollTop($('#chat-messages')[0].scrollHeight);
+        ding.play();
+    }
+
+    
+
+    
+</script>

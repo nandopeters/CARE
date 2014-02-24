@@ -1,0 +1,25 @@
+<body data-no-turbolink>
+	<section id="container" class="">
+
+		<%= render 'layouts/signed_in/header/header' %>
+
+		<!-- sidebar start -->
+		<aside>
+			<%= render 'layouts/signed_in/sidebar/sidebar' %>
+		</aside>
+		<!-- sidebar end -->
+
+		<!-- main content start -->
+		<section id="main-content" class="main-wrapper">
+			<section class="wrapper site-min-height">
+				<!-- page start -->
+				<%= yield %>
+				<!-- page end -->
+			</section>
+			<div class="push"></div>
+		</section>
+		<!-- main content end -->
+		
+		<%= render 'layouts/signed_in/footer' %>
+	</section>
+</body>

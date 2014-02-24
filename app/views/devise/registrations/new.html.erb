@@ -1,0 +1,60 @@
+<% content_for :head do %>
+  <%= tag :meta, :name => "stripe-key", :content => STRIPE_PUBLIC_KEY %>
+<% end %>
+
+<% content_for :js_test do %>
+  <%= javascript_include_tag 'mans_js/man_registrations_new' %>
+<% end %>
+
+
+<h2>Sign up: <%= params[:plan].titleize if params[:plan] %></h2>
+
+<div id="stripe_error" class="alert alert-error" style="display:none" >
+</div>
+
+<%= form_for(@user, :as => :user, :url => registration_path(@user), html: { class: "card_form" }) do |f| %>
+	<%= hidden_field_tag 'plan', params[:plan] %>
+	<% if @user.errors.any? %>
+		<ul style="color: red; text-align: left;"></ul>
+			<% @user.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+  <%= devise_error_messages! %>
+	<p><%= f.label :name %><br />
+	<%= f.text_field :name, :autofocus => true, :placeholder => "Name" %></p>
+
+  <div><%= f.label :email %><br />
+  <%= f.email_field :email, :required => true, :placeholder => "Email" %></div>
+
+  <div><%= f.label :password %><br />
+  <%= f.password_field :password, :required => true, :placeholder => "Password" %></div>
+
+  <div><%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation, :required => true, :placeholder => "Password Confirmation" %></div>
+
+  <% if @user.stripe_token %>
+  	<p>Credit card acceptance is pending.</p>
+  <% else %>
+  	<%= text_field_tag :card_number, nil, name: nil, placeholder: "Credit Card Number" %>
+  	<%= text_field_tag :card_code, nil, name: nil, placeholder: "Card Security Code (CVV)" %>
+  	<div style="text-align: left;">
+  		Credit Card Expiration:
+  	</div>
+  	<div>
+  		<div class="cc_exp_date">
+  			<%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month", class: "cc_exp_date"} %>
+  		</div>
+  		<div class="cc_exp_date">
+  			<%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+10}, {name: nil, id: "card_year", class: "cc_exp_date"} %>
+  		</div>
+  	</div>
+  	<%= f.text_field :coupon, :placeholder => "Promo Code (if any)" %>
+  <% end %>
+  <%= f.hidden_field :stripe_token %>
+  <div><%= f.submit "Sign up", :class => 'btn' %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

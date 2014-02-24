@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'layouts/common/head' %>
+
+  <% unless user_signed_in? %>
+    <%= render 'layouts/signed_out/body' %>
+
+  <% else %>
+    <%= render 'layouts/signed_in/body' %>
+
+  <% end %>
+</html>

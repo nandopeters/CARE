@@ -1,0 +1,23 @@
+
+<!-- Modal -->
+<div id="role-options-<%= user.id %>" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for user, method: :put do |f| %>
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Change Role</h4>
+        </div>
+        <div class="modal-body">
+          <%= collection_select :user, :role_ids, Role.all, :id, :name, checked: user.role_ids.first %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Change Role", :class => "btn btn-success"%>
+          <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- modal -->
